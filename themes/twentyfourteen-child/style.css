@@ -1,0 +1,13 @@
+/*
+Theme Name: Twenty Fourteen Child
+Description: Dragontwins
+Version: 1.0
+Author: pochi
+Template: twentyfourteen
+*/
+
+@import url('../twentyfourteen/style.css');
+
+a{
+	color: #a22020;
+}
