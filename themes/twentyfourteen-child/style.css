@@ -7,7 +7,125 @@ Template: twentyfourteen
 */
 
 @import url('../twentyfourteen/style.css');
+body{
+	background: #e1eef5;
+}
+#main{
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0.1),
+	rgba(6,6,6, 0.1)) fixed, url(images/tower_of_london_wall_part5_by_goodtextures-d3ainzt.jpg);
+}
+#secondary,.site:before{
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0.7),
+	rgba(6, 6, 6, 0.9)) fixed, url(images/tower_of_london_wall_part5_by_goodtextures-d3ainzt.jpg);
+}
 
-a{
-	color: #a22020;
+.site{
+	max-width: 1100px;
+	margin: 0 auto;
+}
+.site-header{
+		background: #e1eef5;
+		padding-top: 5px;
+}
+.site-title{
+	font-family: 'Fontdiner Swanky', cursive;
+	font-size: 36px;
+	font-weight: 400;
+}
+.site-title a{
+	height: 55px;
+	color: #111;
+}
+.site-description img{
+	margin-left: -30px; 
+}
+.hentry{
+	max-width: 650px;/*【コンテンツ幅調整】変更前⇒672px*/
+}
+.site-content .entry-header,
+.site-content .entry-content,
+.site-content .entry-summary,
+.site-content .entry-meta,
+.page-content {
+    max-width: 650px; /*【コンテンツ幅調整】変更前⇒474px*/
+}
+.post-navigation,
+.image-navigation {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.archive-header,
+.page-header {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.contributor-info {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.comments-area {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.site-main .mu_register,
+.widecolumn > h2,
+.widecolumn > form {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+
+
+
+
+
+
+
+@media screen and (min-width: 1080px) {
+.site-content,
+    .site-main .widecolumn {
+        margin-left: 350px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    .site:before {
+        width: 300px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    .search-box-wrapper,
+    .featured-content {
+        padding-left: 350px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    #secondary {
+        width: 240px;/*【コンテンツ幅調整】変更前⇒162px*/
+    }
+ 
+    .secondary-navigation,
+    .secondary-navigation ul ul {
+        width: 350px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    .secondary-navigation ul li:hover > ul,
+    .secondary-navigation ul li.focus > ul {
+        left: 350px;
+    }
+}
+
+
+
+
+.footer_top {
+padding-top:316px;/* 上部画像の高さ*/
+background:url(images/bg_footer_01.png) no-repeat left top;
+position:relative;
+z-index: 3;
+}
+.site-footer {
+padding:6px 20px 6px 20px; /* 余白指定*/
+background:url(images/bg_footer_02.png) repeat-y left top;
+color:#663333;
+font-weight: bold;
+
+}
+
+.footer_top .footer_bottom {
+height:293px;/* 下部画像の高さ*/
+background:url(images/bg_footer_03.png) no-repeat left bottom;
+font-size:1px;/* 文字サイズ拡大時の崩れ回避 */
+line-height:1px;
+z-index:3;
 }
