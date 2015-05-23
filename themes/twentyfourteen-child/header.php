@@ -46,7 +46,7 @@
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 
 			<div class="search-toggle">
-				<a href="#search-container" class="screen-reader-text" aria-expanded="false" aria-controls="search-container"><?php _e( 'Search', 'twentyfourteen' ); ?></a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php bloginfo('stylesheet_directory') ?>/images/search.png" alt="" /></a>
 			</div>
 
 			<nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
@@ -61,6 +61,20 @@
 				<?php get_search_form(); ?>
 			</div>
 		</div>
+		
+		<div class="header-sub">
+			<?php
+		$description = get_bloginfo( 'description', 'display' );
+		if ( ! empty ( $description ) ) :
+			?>
+			<h2 class="logo">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php bloginfo('stylesheet_directory') ?>/images/logo.png" alt="" /></a>
+				
+		<?php endif; ?>
+			</h2>
+
+		</div>
 	</header><!-- #masthead -->
+
 
 	<div id="main" class="site-main">

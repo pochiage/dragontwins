@@ -9,16 +9,7 @@
 ?>
 <div id="secondary">
 	
-	<?php
-		$description = get_bloginfo( 'description', 'display' );
-		if ( ! empty ( $description ) ) :
-	?>
-	<h2 class="site-description">
-		<img src="<?php bloginfo('stylesheet_directory') ?>/images/dragon.png" alt="" />
-		<?php echo esc_html( $description ); ?>
-	
-	<?php endif; ?>
-</h2>
+
 	<?php if ( has_nav_menu( 'secondary' ) ) : ?>
 	<nav role="navigation" class="navigation site-navigation secondary-navigation">
 		<?php wp_nav_menu( array( 'theme_location' => 'secondary' ) ); ?>
