@@ -64,19 +64,18 @@
 			</div>
 		</div>
 		
+
+	</header><!-- #masthead -->
 		<div class="header-sub">
 			<?php
 		$description = get_bloginfo( 'description', 'display' );
 		if ( ! empty ( $description ) ) :
 			?>
 			<h2 class="logo">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php bloginfo('stylesheet_directory') ?>/images/logo.png" alt="" /></a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="<?php bloginfo('stylesheet_directory') ?>/images/daitai-logo2.png" alt="" /></a>
 				
 		<?php endif; ?>
 			</h2>
-
 		</div>
-	</header><!-- #masthead -->
-
 
 	<div id="main" class="site-main">

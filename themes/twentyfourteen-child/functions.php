@@ -9,3 +9,5 @@ function foo_modify_query_exclude_category( $query ) {
 if ( ! isset( $content_width ) ) {
 	$content_width = 650;
 }
+
+

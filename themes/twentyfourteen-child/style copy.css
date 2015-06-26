@@ -1,0 +1,198 @@
+/*/dragontwins.xyz/public_html/wp-content/themes/twentyfourteen-child/style.css
+Theme Name: Twenty Fourteen Child
+Description: Dragontwins
+Version: 1.0
+Author: pochi
+Template: twentyfourteen
+*/
+
+@import url('../twentyfourteen/style.css');
+
+ins{
+	background: inherit;
+}
+
+
+body{
+	background: #111;
+	background:url(images/13757897_ml.jpg) no-repeat #000;
+}
+::selection{
+	background: #70B9AE;
+}
+.logo img{
+	width: 100%;
+	height: auto;
+}
+
+.search-toggle:before{
+		content:url(images/search.png);
+		margin-top: 0;
+}
+
+.search-toggle{
+	background-color: inherit;
+}
+.search-toggle:hover,.search-toggle.active{
+	background-color: #70B9AE;
+}
+.search-box{
+	background-color: #70B9AE;
+}
+h2{
+	margin: 0 50px 0 0;
+}
+.midashi{
+  border-left: 5px solid #0000b1;
+  padding: 10px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.site{
+	max-width: 1100px;
+	margin: 0 auto;
+}
+.site-header{
+		background:rgba(225, 238, 245, 0.49);
+}
+.site-title{
+	font-family: 'Fontdiner Swanky', cursive;
+	font-size: 36px;
+	font-weight: 400;
+	text-shadow: 0px 1px 0px white;
+}
+.site-title a{
+	color: #111;
+	line-height: 54px;
+}
+.site-description img{
+	margin-left: -30px; 
+}
+.hentry{
+	max-width: 650px;/*【コンテンツ幅調整】変更前⇒672px*/
+}
+.site-content .entry-header,
+.site-content .entry-content,
+.site-content .entry-summary,
+.site-content .entry-meta,
+.page-content {
+    max-width: 650px; /*【コンテンツ幅調整】変更前⇒474px*/
+}
+.post-navigation,
+.image-navigation {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.archive-header,
+.page-header {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.contributor-info {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.comments-area {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+.site-main .mu_register,
+.widecolumn > h2,
+.widecolumn > form {
+    max-width: 650px;/*【コンテンツ幅調整】変更前⇒474px*/
+}
+
+
+
+
+
+@media screen and (min-width: 1080px) {
+#page{
+		background: linear-gradient(-45deg, rgba(0, 0, 0, 0.1),
+	rgba(6,6,6, 0.1)) fixed, url(images/tower_of_london_wall_part5_by_goodtextures-d3ainzt.jpg);
+}
+#main{
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0.1),
+	rgba(6,6,6, 0.1)) fixed, url(images/tower_of_london_wall_part5_by_goodtextures-d3ainzt.jpg);
+	overflow: hidden;
+}
+#secondary,.site:before{
+	background: linear-gradient(-45deg, rgba(0, 0, 0, 0.7),
+	rgba(6, 6, 6, 0.7)) fixed, url(images/tower_of_london_wall_part5_by_goodtextures-d3ainzt.jpg);
+}	
+#secondary{
+	padding-bottom: 32768px;
+	margin-bottom: -32768px;
+	color: #fff;
+}	
+	
+.site-content,
+    .site-main .widecolumn {
+        margin-left: 350px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    .site:before {
+        width: 300px;/*【コンテンツ幅調整】変更前⇒222px*/
+        background:none;
+    }
+    
+ 
+    .search-box-wrapper,
+    .featured-content {
+        padding-left: 350px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    #secondary {
+        width: 240px;/*【コンテンツ幅調整】変更前⇒162px*/
+    }
+ 
+    .secondary-navigation,
+    .secondary-navigation ul ul {
+        width: 350px;/*【コンテンツ幅調整】変更前⇒222px*/
+    }
+ 
+    .secondary-navigation ul li:hover > ul,
+    .secondary-navigation ul li.focus > ul {
+        left: 350px;
+    }
+    .navigation,#comments{
+	    background: rgba(255, 255, 255, 0.9);
+    }
+}
+
+footer .widget-title,
+footer .widget-title a,
+footer .widget a{
+	color: #333;
+}
+
+
+.footer_top {
+/* padding-top:316px; *//* 上部画像の高さ*/
+/* background:url(images/bg_footer_01.png) no-repeat left top; */
+position:relative;
+z-index: 3;
+}
+.site-footer {
+padding:6px 20px 6px 20px; /* 余白指定*/
+background:url(images/bg_footer_02.png) repeat-y left top;
+color:#663333;
+font-weight: bold;
+
+}
+
+.footer_top .footer_bottom {
+height:293px;/* 下部画像の高さ*/
+background:url(images/bg_footer_03.png) no-repeat left bottom;
+font-size:1px;/* 文字サイズ拡大時の崩れ回避 */
+line-height:1px;
+z-index:3;
+}
+
+
+@media screen and (max-width: 400px) {
+	.list-view .site-content .type-post .entry-content{
+display: inherit;
+	}
+	.list-view .site-content .entry-meta{
+		clear: inherit;
+		text-transform: inherit;
+	}
+}
