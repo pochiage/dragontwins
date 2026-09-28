@@ -2,6 +2,8 @@
 # デスクトップ上のファイル・フォルダをすべて、移動先の「年 月」フォルダ
 # （例: "2026 August"）へ移動する。月は移動した日（実行日）で決める。
 # 月フォルダ内に同じ名前のものが既にある場合は、上書きせずデスクトップに残す。
+# 「資料 (1).pdf」「資料 のコピー.pdf」のようなコピーも、元のファイルが
+# デスクトップか移動先のどこかにあれば、移動せずデスクトップに残す。
 #
 # 使い方: organize-desktop.sh [移動先フォルダ]
 #   引数を省略した場合は ~/Documents/Desktop（書類 > Desktop）に移動する。
@@ -14,6 +16,32 @@ mkdir -p "$(dirname "$LOG")" "$DEST" || exit 1
 
 log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"
+}
+
+# コピーによく付く「 (1)」「（2）」「 のコピー」「 copy」などを外した名前を返す。
+# コピーらしい名前でなければ何も返さない。
+original_name() {
+  local base="$1" ext=""
+  case "$base" in
+    ?*.*) ext=".${base##*.}"; base="${base%.*}" ;;
+  esac
+  local re_num='^(.+)(\(|（)[0-9]+(\)|）)$'
+  local re_copy='^(.+)( ?のコピー| copy)( [0-9]+)?$'
+  if [[ "$base" =~ $re_num ]] || [[ "$base" =~ $re_copy ]]; then
+    base="${BASH_REMATCH[1]}"
+    base="${base% }"
+    echo "$base$ext"
+  fi
+}
+
+# 元のファイルがデスクトップか移動先の月フォルダのどこかにあるか
+original_exists() {
+  local f
+  [ -e "$DESKTOP/$1" ] && return 0
+  for f in "$DEST"/*/"$1"; do
+    [ -e "$f" ] && return 0
+  done
+  return 1
 }
 
 if ! ls "$DESKTOP" > /dev/null 2>&1; then
@@ -46,6 +74,13 @@ for item in "$DESKTOP"/*; do
     continue
   fi
 
+  orig="$(original_name "$name")"
+  if [ -n "$orig" ] && original_exists "$orig"; then
+    log "スキップ（コピー）: $name"
+    skipped=$((skipped + 1))
+    continue
+  fi
+
   if mkdir -p "$folder" && mv -n "$item" "$folder/"; then
     log "移動: $name"
     moved=$((moved + 1))
@@ -55,4 +90,4 @@ for item in "$DESKTOP"/*; do
 done
 
 log "完了: 移動 ${moved} 件 / スキップ ${skipped} 件"
-echo "$(basename "$folder") に ${moved} 件移動しました（同名のためスキップ ${skipped} 件）"
+echo "$(basename "$folder") に ${moved} 件移動しました（同名・コピーのためスキップ ${skipped} 件）"
