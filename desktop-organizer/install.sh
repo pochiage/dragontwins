@@ -1,11 +1,14 @@
 #!/bin/bash
-# 毎週デスクトップを整理する LaunchAgent を登録する。
+# 毎週デスクトップを整理するアプリと LaunchAgent を登録する（管理者権限は不要）。
 #
-# 使い方: ./install.sh [移動先フォルダ]
-#   例: ./install.sh "$HOME/Documents/Desktop"
+# 使い方: bash install.sh [移動先フォルダ]
+#   例: bash install.sh "$HOME/Documents/Desktop"
 #
 # 実行日時は下の WEEKDAY / HOUR / MINUTE で変更できる。
 #   WEEKDAY: 0=日 1=月 2=火 3=水 4=木 5=金 6=土
+#
+# 整理は ~/Applications/デスクトップを整理.app が行う。初回実行時に macOS が
+# 「デスクトップ」「書類」フォルダへのアクセス許可を求めるので「許可」を押す。
 
 WEEKDAY=1
 HOUR=9
@@ -18,12 +21,26 @@ LABEL="com.user.organize-desktop"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 INSTALLED_SCRIPT="$HOME/Library/Scripts/organize-desktop.sh"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
-RUN_NOW="$HOME/Applications/デスクトップを整理.command"
+APP="$HOME/Applications/デスクトップを整理.app"
 
 mkdir -p "$HOME/Library/Scripts" "$HOME/Library/LaunchAgents" "$HOME/Applications" "$DEST"
 cp "$SCRIPT_DIR/organize-desktop.sh" "$INSTALLED_SCRIPT"
-cp "$SCRIPT_DIR/run-now.command" "$RUN_NOW"
-chmod +x "$INSTALLED_SCRIPT" "$RUN_NOW"
+chmod +x "$INSTALLED_SCRIPT"
+
+# 旧バージョンの手動実行ファイルを削除
+rm -f "$HOME/Applications/デスクトップを整理.command"
+
+# 整理スクリプトを呼び出すアプリを作る。アプリ経由にすることで、フルディスク
+# アクセス（管理者権限が必要）ではなく、フォルダごとのアクセス許可で動かせる。
+rm -rf "$APP"
+osacompile -o "$APP" <<APPLESCRIPT
+try
+  set result to do shell script "/bin/bash " & quoted form of "$INSTALLED_SCRIPT" & " " & quoted form of "$DEST"
+  display notification result with title "デスクトップを整理"
+on error errMsg
+  display dialog "デスクトップの整理に失敗しました。" & return & return & errMsg buttons {"OK"} default button 1 with icon caution with title "デスクトップを整理"
+end try
+APPLESCRIPT
 
 cat > "$PLIST" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -34,9 +51,9 @@ cat > "$PLIST" <<PLIST
   <string>$LABEL</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/bin/bash</string>
-    <string>$INSTALLED_SCRIPT</string>
-    <string>$DEST</string>
+    <string>/usr/bin/open</string>
+    <string>-g</string>
+    <string>$APP</string>
   </array>
   <key>StartCalendarInterval</key>
   <dict>
@@ -59,5 +76,5 @@ echo "登録しました。"
 echo "  移動先: $DEST"
 echo "  実行日時: 毎週 曜日=$WEEKDAY $(printf '%02d:%02d' "$HOUR" "$MINUTE")"
 echo "  ログ: $HOME/Library/Logs/organize-desktop.log"
-echo "手動で実行するには: $RUN_NOW をダブルクリック"
-echo "  （またはターミナルで launchctl kickstart gui/$(id -u)/$LABEL）"
+echo "手動で実行するには: $APP をダブルクリック"
+echo "※ 初回はアクセス許可のダイアログが出るので「許可」を押してください。"

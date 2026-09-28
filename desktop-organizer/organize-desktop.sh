@@ -17,7 +17,9 @@ log() {
 }
 
 if ! ls "$DESKTOP" > /dev/null 2>&1; then
-  log "エラー: $DESKTOP を読めません（フルディスクアクセスの許可を確認してください）"
+  msg="$DESKTOP を読めません。システム設定 > プライバシーとセキュリティ > ファイルとフォルダ で「デスクトップを整理」の許可を確認してください。"
+  log "エラー: $msg"
+  echo "$msg" >&2
   exit 1
 fi
 
@@ -53,3 +55,4 @@ for item in "$DESKTOP"/*; do
 done
 
 log "完了: 移動 ${moved} 件 / スキップ ${skipped} 件"
+echo "$(basename "$folder") に ${moved} 件移動しました（同名のためスキップ ${skipped} 件）"
