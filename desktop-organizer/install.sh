@@ -2,7 +2,7 @@
 # 毎週デスクトップを整理する LaunchAgent を登録する。
 #
 # 使い方: ./install.sh [移動先フォルダ]
-#   例: ./install.sh "$HOME/Documents/DesktopArchive"
+#   例: ./install.sh "$HOME/Documents/Desktop"
 #
 # 実行日時は下の WEEKDAY / HOUR / MINUTE で変更できる。
 #   WEEKDAY: 0=日 1=月 2=火 3=水 4=木 5=金 6=土
@@ -13,15 +13,17 @@ MINUTE=0
 
 set -e
 
-DEST="${1:-$HOME/Documents/DesktopArchive}"
+DEST="${1:-$HOME/Documents/Desktop}"
 LABEL="com.user.organize-desktop"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 INSTALLED_SCRIPT="$HOME/Library/Scripts/organize-desktop.sh"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+RUN_NOW="$HOME/Applications/デスクトップを整理.command"
 
-mkdir -p "$HOME/Library/Scripts" "$HOME/Library/LaunchAgents" "$DEST"
+mkdir -p "$HOME/Library/Scripts" "$HOME/Library/LaunchAgents" "$HOME/Applications" "$DEST"
 cp "$SCRIPT_DIR/organize-desktop.sh" "$INSTALLED_SCRIPT"
-chmod +x "$INSTALLED_SCRIPT"
+cp "$SCRIPT_DIR/run-now.command" "$RUN_NOW"
+chmod +x "$INSTALLED_SCRIPT" "$RUN_NOW"
 
 cat > "$PLIST" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -57,4 +59,5 @@ echo "登録しました。"
 echo "  移動先: $DEST"
 echo "  実行日時: 毎週 曜日=$WEEKDAY $(printf '%02d:%02d' "$HOUR" "$MINUTE")"
 echo "  ログ: $HOME/Library/Logs/organize-desktop.log"
-echo "今すぐ試すには: launchctl kickstart gui/$(id -u)/$LABEL"
+echo "手動で実行するには: $RUN_NOW をダブルクリック"
+echo "  （またはターミナルで launchctl kickstart gui/$(id -u)/$LABEL）"

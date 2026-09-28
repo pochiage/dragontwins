@@ -5,5 +5,5 @@ LABEL="com.user.organize-desktop"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 
 launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null
-rm -f "$PLIST" "$HOME/Library/Scripts/organize-desktop.sh"
+rm -f "$PLIST" "$HOME/Library/Scripts/organize-desktop.sh" "$HOME/Applications/デスクトップを整理.command"
 echo "解除しました。"
