@@ -36,7 +36,11 @@ rm -rf "$APP"
 osacompile -o "$APP" <<APPLESCRIPT
 try
   set result to do shell script "/bin/bash " & quoted form of "$INSTALLED_SCRIPT" & " " & quoted form of "$DEST"
-  display notification result with title "デスクトップを整理"
+  -- 自作アプリの通知は macOS に表示されないことがあるため、10 秒で閉じるダイアログで結果を出す
+  set answer to display dialog result buttons {"フォルダを開く", "OK"} default button "OK" giving up after 10 with title "デスクトップを整理"
+  if button returned of answer is "フォルダを開く" then
+    do shell script "open " & quoted form of "$DEST"
+  end if
 on error errMsg
   display dialog "デスクトップの整理に失敗しました。" & return & return & errMsg buttons {"OK"} default button 1 with icon caution with title "デスクトップを整理"
 end try
