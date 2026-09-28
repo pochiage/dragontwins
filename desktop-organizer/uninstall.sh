@@ -7,4 +7,5 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 launchctl bootout "gui/$(id -u)" "$PLIST" 2>/dev/null
 rm -f "$PLIST" "$HOME/Library/Scripts/organize-desktop.sh" "$HOME/Applications/デスクトップを整理.command"
 rm -rf "$HOME/Applications/デスクトップを整理.app"
+rm -f "$HOME/Library/Scripts/Raycast/organize-desktop.sh"
 echo "解除しました。"

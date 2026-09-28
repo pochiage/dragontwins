@@ -24,8 +24,14 @@
 
 ## 手動で実行する
 
-**デスクトップを整理.app** をダブルクリックします（Spotlight や Raycast からも起動できます）。
+**デスクトップを整理.app** をダブルクリックします。
 失敗したときはダイアログで理由が表示されます。
+
+### Raycast から実行する（初回のみ設定）
+
+1. Raycast の設定（`Cmd + ,`）→ **Extensions** → 左下の **+** → **Add Script Directory**
+2. `Cmd + Shift + G` で `~/Library/Scripts/Raycast` と入力して **開く**
+3. 以降は Raycast で「デスクトップを整理」と入力して Enter
 
 ## 設定
 
