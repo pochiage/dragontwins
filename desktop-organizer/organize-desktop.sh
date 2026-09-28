@@ -1,6 +1,6 @@
 #!/bin/bash
 # デスクトップ上のファイル・フォルダをすべて、移動先の「年 月」フォルダ
-# （例: "2026 August"）へ移動する。月は各ファイルの変更日で決める。
+# （例: "2026 August"）へ移動する。月は移動した日（実行日）で決める。
 # 月フォルダ内に同じ名前のものが既にある場合は、上書きせずデスクトップに残す。
 #
 # 使い方: organize-desktop.sh [移動先フォルダ]
@@ -16,24 +16,17 @@ log() {
   echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"
 }
 
-# ファイルの変更日から "2026 August" のようなフォルダ名を返す
-month_folder() {
-  if [ "$(uname)" = "Darwin" ]; then
-    LC_ALL=C date -r "$(stat -f %m "$1")" '+%Y %B'
-  else
-    LC_ALL=C date -d "@$(stat -c %Y "$1")" '+%Y %B'
-  fi
-}
-
 if ! ls "$DESKTOP" > /dev/null 2>&1; then
   log "エラー: $DESKTOP を読めません（フルディスクアクセスの許可を確認してください）"
   exit 1
 fi
 
+# 実行日の月フォルダ（例: "2026 August"）
+folder="$DEST/$(LC_ALL=C date '+%Y %B')"
 moved=0
 skipped=0
 
-log "開始: $DESKTOP -> $DEST"
+log "開始: $DESKTOP -> $folder"
 
 # 隠しファイル（.DS_Store や .localized など）は対象外
 for item in "$DESKTOP"/*; do
@@ -45,8 +38,6 @@ for item in "$DESKTOP"/*; do
     continue
   fi
 
-  folder="$DEST/$(month_folder "$item")"
-
   if [ -e "$folder/$name" ]; then
     log "スキップ（同名あり）: $name"
     skipped=$((skipped + 1))
@@ -54,7 +45,7 @@ for item in "$DESKTOP"/*; do
   fi
 
   if mkdir -p "$folder" && mv -n "$item" "$folder/"; then
-    log "移動: $name -> $(basename "$folder")"
+    log "移動: $name"
     moved=$((moved + 1))
   else
     log "失敗: $name"
